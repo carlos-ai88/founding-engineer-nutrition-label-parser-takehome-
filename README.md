@@ -117,4 +117,6 @@ There are no constraints on language, tools, models, or frameworks. Use whatever
 
 ## Submission
 
-Send us a GitHub repository link. If the repo is private, add `@[reviewer-handle]` as a collaborator.
+1. Fork this repository
+2. Add your solution
+3. Share your forked repo link with us
