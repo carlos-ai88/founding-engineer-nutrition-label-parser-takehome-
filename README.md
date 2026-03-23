@@ -1,122 +1,52 @@
-# 🏷️ Product Label Nutrition Parser — Take-Home Assignment
-
-We expect this to take **4–6 hours**. Please don't spend more than that.
-
----
-
-## Before you start
-
-Most take-home assignments hand you a spec and ask you to implement it. This one doesn't.
-
-We care less about whether your parser handles every edge case and more about **how you think through a problem that has no clean answer**. The nutrition label domain is intentionally messy, inconsistent, and under-defined — the same way real product work is.
-
-Read the brief. Then decide what to build, what to skip, and why.
-
----
-
-## Overview
-
-Consumer health and nutrition products publish nutrition or supplement facts on product labels — but these labels vary significantly in layout, formatting, naming conventions, and units.
-
-Your task: **build a system that takes a folder of product label images and produces a structured, normalised dataset of nutritional information.**
-
-A sample image folder is provided. No other setup or scaffolding is given — that's intentional.
-
----
-
-## Input
-
-```
-sample_images/
-├── product_01.jpg
-├── product_02.jpg
-└── ...
-```
-
-Images may contain nutrition facts panels, supplement facts tables, ingredient lists, and serving size information. They intentionally vary in layout, naming conventions, units, and text structure.
-
----
-
-## Output
-
-Produce a structured dataset. CSV or Excel is fine. Save it to `output/nutrition_data.csv`.
-
-Example output schema:
-
-| `product_image` | `nutrient_name_raw` | `nutrient_name_standard` | `amount` | `unit` |
-|---|---|---|---|---|
-| product_01.jpg | Protein | `protein` | 24 | g |
-| product_01.jpg | Ascorbic Acid | `vitamin_c` | 60 | mg |
-| product_02.jpg | Calcium | `calcium` | 200 | mg |
-
-You can extend this schema if you think there's a good reason to. You can simplify it if you think parts are wrong. Just explain why.
-
----
-
-## Standardisation
-
-Labels use inconsistent names and units for the same nutrients. Your system should normalise them.
-
-### Nutrient naming examples
-
-| Label text | Standard name |
-|---|---|
-| Vitamin C | `vitamin_c` |
-| Ascorbic Acid | `vitamin_c` |
-| Thiamine Mononitrate | `vitamin_b1` |
-| Pyridoxine HCL | `vitamin_b6` |
-
-### Unit normalisation examples
-
-| Input | Standard unit |
-|---|---|
-| milligrams | `mg` |
-| grams | `g` |
-| mcg | `µg` |
-| IU | `IU` |
-
-These are illustrative, not exhaustive. How far you take normalisation — and where you draw the line — is your call.
-
----
-
-## What we're looking for
-
-We will not be running your code against a hidden test suite. We'll be reading it.
-
-| Criteria | What we're actually evaluating |
-|---|---|
-| Problem decomposition | Did you identify the hard parts early? What did you solve vs. defer, and why? |
-| System design | Is the architecture clear? Would it hold up at 10× the image volume? |
-| Judgment under ambiguity | There are at least five places where the right answer isn't obvious. What did you do at each? |
-| Code quality | Does the code reflect clear thinking? Is it easy to modify? |
-
-A senior engineer who makes three well-reasoned tradeoffs and documents them clearly will score higher than one who attempts to handle every case without acknowledging the mess.
-
----
-
-## Deliverables
-
-A GitHub repository containing:
-
-```
-README.md
-source_code/
-sample_output/
-```
-
-Your README is as important as your code. It should cover:
-
-- **What you built** — your approach and key decisions
-- **What you decided not to build** — and why
-- **The hardest part** — what was genuinely ambiguous and how you resolved it
-- **What you'd do next** with more time
-
-There are no constraints on language, tools, models, or frameworks. Use whatever you think is right.
-
----
-
-## Submission
-
-1. Fork this repository
-2. Add your solution
-3. Share your forked repo link with us
+1. Overview
+Purpose: Explains what the project does at a high level.
+Content: The system extracts structured nutritional information from messy product label images and normalizes the data.
+Why it matters: Shows that you understand the real-world challenge of inconsistent labels and messy input data.
+2. Repository Structure
+Purpose: Makes it easy for someone to navigate your repo.
+Content: Lists all key folders and files, including source_code/, sample_images/, sample_output/, and output/.
+Why it matters: Signals that your project is organized, modular, and maintainable.
+3. Approach
+Purpose: Explains how you solved the problem.
+Content: Step-by-step pipeline:
+OCR extraction → raw text
+Parsing → identify nutrients and amounts
+Normalization → map to canonical names and units
+Structuring → output CSV
+Why it matters: Shows your ability to decompose a messy problem and make deliberate choices.
+4. Architecture
+Purpose: Visual snapshot of the pipeline.
+Content: Diagram-style flow: Images → OCR → Parser → Normalizer → CSV Output
+Why it matters: Shows clarity and modularity; easy to scale or swap components.
+5. Key Design Decisions & Tradeoffs
+Purpose: Explains why you made certain choices instead of trying to handle every edge case.
+Examples:
+Used rule-based parsing instead of ML → transparent, fast, and easy to debug.
+Ignored layout reconstruction → focuses on text extraction for speed and clarity.
+Limited normalization → prioritizes high-frequency nutrients.
+Why it matters: Demonstrates judgment under ambiguity — one of the most important evaluation criteria.
+6. Output Schema
+Purpose: Shows exactly what your CSV contains.
+Content: Columns:
+product_image
+nutrient_name_raw
+nutrient_name_standard
+amount
+unit
+Why it matters: Makes your output predictable and easy to consume.
+7. Limitations
+Purpose: Acknowledges what your system does not handle.
+Content: OCR noise, multi-line nutrients, irregular table formats, multilingual labels.
+Why it matters: Shows honesty and realistic scope — important in take-home assignments.
+8. Hardest Parts & Ambiguities
+Purpose: Highlights the problem-solving challenges.
+Content: Inconsistent nutrient naming, noisy OCR, missing units, layout variations.
+Why it matters: Shows critical thinking and awareness of the most complex parts of the task.
+9. Future Improvements
+Purpose: Shows how you would expand the system if given more time.
+Examples: Layout-aware parsing, NLP-based nutrient extraction, unit conversions, multilingual support.
+Why it matters: Signals long-term thinking and scalability awareness.
+10. How to Run
+Purpose: Gives step-by-step instructions to replicate your results.
+Content: Install dependencies, add images, run main.py, check output/nutrition_data.csv.
+Why it matters: Ensures your project is easy to test and demonstrates professionalism.
